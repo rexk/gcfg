@@ -84,6 +84,14 @@ func boolSetter(d interface{}, blank bool, val string, t tag) error {
 	return err
 }
 
+func floatSetter(d interface{}, blank bool, val string, t tag) error {
+	if blank {
+		reflect.ValueOf(d).Elem().Set(reflect.ValueOf(true))
+		return nil
+	}
+	return types.ParseFloat(d, val)
+}
+
 func intMode(mode string) types.IntMode {
 	var m types.IntMode
 	if strings.ContainsAny(mode, "dD") {
